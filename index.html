@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahantesh Patil | SDE Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg: #030712;
+            --accent: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.3);
+            --grid-color: rgba(0, 255, 204, 0.07);
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f9fafb;
+            --text-dim: #9ca3af;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body.light-mode {
+            --bg: #f3f4f6;
+            --accent: #0284c7; 
+            --accent-glow: rgba(2, 132, 199, 0.2);
+            --grid-color: rgba(2, 132, 199, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.1);
+            --text: #111827;
+            --text-dim: #4b5563;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: var(--bg);
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 45px 45px;
+            color: var(--text); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+            transition: background 0.5s ease; 
+        }
+
+        .cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                var(--accent-glow),
+                transparent 80%
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 20%, var(--bg) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 10%;
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border);
+        }
+        .nav-logo { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.2rem; color: var(--accent); }
+
+        .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 4px; margin: 40px 0 20px 0; grid-column: span 4; display: flex; align-items: center; gap: 15px; }
+        .section-label::after { content: ""; height: 1px; flex-grow: 1; background: var(--border); }
+
+        /* Bento Grid */
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 32px;
+            padding: 35px; backdrop-filter: blur(12px); transition: var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        /* Identity Section - New Rectangular Layout */
+        .profile-box { 
+            grid-column: span 4; 
+            display: flex; 
+            align-items: center; 
+            gap: 40px; 
+            padding: 50px; 
+        }
+        
+        .profile-img-wrap { 
+            width: 260px; 
+            height: 260px; 
+            border-radius: 24px; 
+            border: 2px solid var(--accent); 
+            overflow: hidden; 
+            flex-shrink: 0;
+            transition: var(--transition); 
+        }
+        .profile-img-wrap:hover { transform: scale(1.05); }
+        .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+        .profile-info { flex: 1; }
+
+        .type-text { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 700; margin: 10px 0; font-size: 1.1rem; }
+
+        .resume-link {
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 25px;
+            color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.9rem;
+            padding: 12px 20px; border-radius: 14px; background: var(--accent-glow);
+            transition: var(--transition); border: 1px solid transparent;
+        }
+        .resume-link:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+        /* Tags & Projects */
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .tag { 
+            background: rgba(255, 255, 255, 0.03); padding: 8px 16px; border-radius: 12px; 
+            font-size: 0.75rem; border: 1px solid var(--border); color: var(--text-dim);
+            transition: 0.3s; font-weight: 600;
+        }
+        .tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+        .wide { grid-column: span 2; }
+        .full { grid-column: span 4; }
+        .btn-group { display: flex; gap: 12px; margin-top: 30px; }
+        .btn { 
+            flex: 1; text-decoration: none; padding: 12px; border-radius: 14px; 
+            font-size: 0.85rem; font-weight: 700; text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; 
+        }
+        .btn.live { background: var(--accent); color: var(--bg); }
+        .btn.code { border: 1px solid var(--border); color: var(--text); }
+        .btn:hover { filter: brightness(1.2); transform: translateY(-3px); }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) { 
+            .profile-box { flex-direction: column; text-align: center; gap: 25px; padding: 35px; }
+            .profile-info { display: flex; flex-direction: column; align-items: center; }
+            .bento-grid { grid-template-columns: repeat(2, 1fr); } 
+            .full, .section-label, .profile-box { grid-column: span 2; } 
+        }
+        @media (max-width: 600px) { 
+            .bento-grid { grid-template-columns: 1fr; } 
+            .profile-box, .wide, .full, .section-label { grid-column: span 1; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    <div class="vignette"></div>
+
+    <nav>
+        <div class="nav-logo">MAHANTESH PATIL</div>
+        <button class="resume-link" id="themeToggle" style="margin-top:0; padding: 8px 12px;"><i class="fas fa-moon"></i></button>
+    </nav>
+
+    <div class="container">
+        <div class="bento-grid">
+            <p class="section-label">01 // IDENTITY</p>
+
+            <div class="card profile-box">
+                <div class="profile-img-wrap">
+                    <img src="one.jpg" alt="Mahantesh Patil">
+                </div>
+                
+                <div class="profile-info">
+                    <h1 style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; letter-spacing: -1px;">Mahantesh Patil</h1>
+                    <div class="type-text">> <span id="typewriter"></span></div>
+                    <p style="color: var(--text-dim); font-size: 1rem; margin-top: 15px; line-height: 1.6; max-width: 650px;">
+                        Full-Stack Developer | Focused on Clean Code, System Thinking & Building Real Products. 
+                        Hands-on with Spring Boot, React & Modern Web Technologies. Driven by Problem Solving, 
+                        Scalability & Real-World Use Cases.
+                    </p>
+                    <a href="Mahantesh_Patil__Backend .pdf" class="resume-link">
+                        <i class="fas fa-file-download"></i> RESUME
+                    </a>
+                </div>
+            </div>
+
+            <p class="section-label">02 // TECH_STACK</p>
+
+            <div class="card full">
+                <div class="tech-tags">
+                    <span class="tag">JAVA(CORE & ADVANCE)</span><span class="tag">SPRING BOOT</span><span class="tag">SPRING SECURITY</span><span class="tag">SWAGGER</span>
+                    <span class="tag">POSTMAN</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">REACT</span>
+                    <span class="tag">JAVASCRIPT</span><span class="tag">VITE</span><span class="tag">REDUX</span><span class="tag">TAILWIND CSS</span><span class="tag">PAYMENT INTEGRATION</span>
+                    <span class="tag">PYTHON</span><span class="tag">AWS</span><span class="tag">DOCKER</span><span class="tag">MAVEN</span>
+                    <span class="tag">GIT & GITHUB</span><span class="tag">MYSQL</span><span class="tag">POSTGRESQL</span><span class="tag">REDIS</span><span class="tag">MONGODB</span>
+                </div>
+            </div>
+
+            <p class="section-label">03 // PROJECTS</p>
+
+            <div class="card wide">
+                <span style="font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--accent);">[ Machine learning ]</span>
+                <h3 style="font-size: 1.4rem; margin-top: 10px;">PLANT DISEASE DETECTION</h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 10px;">
+                    An AI-powered web application that identifies plant diseases from leaf images using deep learning models.
+                </p>
+                <div class="btn-group">
+                    <a href="https://plantdiseasdetect.streamlit.app/" class="btn live"><i class="fas fa-external-link-alt"></i> LIVE_DEMO</a>
+                    <a href="https://github.com/MahanteshPatil1214/PlantDiseseDetect" class="btn code"><i class="fab fa-github"></i> VIEW_SOURCE</a>
+                </div>
+            </div>
+
+            <div class="card wide">
+                <span style="font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--accent);">[ FULLSTACK_AI ]</span>
+                <h3 style="font-size: 1.4rem; margin-top: 10px;">NAVAM AI</h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 10px;">
+                    A full-stack application for service requests with a corporate messaging system and AI assistant.
+                </p>
+                <div class="btn-group">
+                    <a href="https://navam.onrender.com/" class="btn live"><i class="fas fa-external-link-alt"></i> LIVE_DEMO</a>
+                    <a href="https://github.com/MahanteshPatil1214/agency-platform" class="btn code"><i class="fab fa-github"></i> VIEW_SOURCE</a>
+                </div>
+            </div>
+
+            <div class="card wide">
+                <span style="font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--accent);">[ Machine learning ]</span>
+                <h3 style="font-size: 1.4rem; margin-top: 10px;">STOCK PRICE PREDICTION </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 10px;">
+                   A web app that predicts next-day stock closing price using Machine Learning and Technical Indicators.
+                </p>
+                <div class="btn-group">
+                    <a href="https://investmentforecast.streamlit.app/" class="btn live"><i class="fas fa-external-link-alt"></i> LIVE_DEMO</a>
+                    <a href="https://github.com/MahanteshPatil1214/Stock-Prediction" class="btn code"><i class="fab fa-github"></i> VIEW_SOURCE</a>
+                </div>
+            </div>
+
+            <p class="section-label">04 // CONNECT</p>
+
+            <div class="card full" style="text-align: center;">
+                <h2 style="font-size: 2rem; font-weight: 800;">Initiate Collaboration?</h2>
+                <div class="social-links" style="display: flex; justify-content: center; gap: 40px; margin-top: 30px;">
+                    <a href="https://github.com/MahanteshPatil1214" style="color: var(--text); font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/mahanteshpatil642/" style="color: var(--text); font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:patilmahantesh642@gmail.com" style="color: var(--text); font-size: 1.5rem;"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mouse Glow Tracking
+        document.addEventListener('mousemove', (e) => {
+            document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        // Typewriter Effect
+        const words = ["Backend Engineer", "Cloud Enthusiast", "JAVA Full Stack Developer", "PROBLEM SOLVER"];
+        let i = 0, j = 0, current = "", isDeleting = false;
+        function type() {
+            current = words[i];
+            const el = document.getElementById("typewriter");
+            if(!el) return;
+            el.textContent = isDeleting ? current.substring(0, j - 1) : current.substring(0, j + 1);
+            j = isDeleting ? j - 1 : j + 1;
+            if (!isDeleting && j === current.length) { isDeleting = true; setTimeout(type, 2000); return; }
+            if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; }
+            setTimeout(type, isDeleting ? 60 : 120);
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.onclick = () => {
+            document.body.classList.toggle('light-mode');
+            themeToggle.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        };
+
+        document.addEventListener("DOMContentLoaded", type);
+    </script>
+</body>
+</html>
