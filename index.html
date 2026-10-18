@@ -172,6 +172,10 @@ h2.rv.in::after{width:72px}
 <section id="work">
   <h2 class="rv">Selected work</h2>
   <div class="projs">
+    <article class="pj rv" style="--i:1"><span class="kind">Full stack + AI / RAG</span><h3>FinPilot AI</h3>
+      <p>An AI financial operations platform for document Q&amp;A, transaction reconciliation and discrepancy investigation. A PDF/CSV ingestion and RAG pipeline with semantic chunking, 384-dim embeddings and pgvector search answers every query with citations in about 1.5s end to end, while a LangGraph workflow over Groq LLMs checks evidence sufficiency and escalates to human review. Reconciliation built on Python Decimal linked all 35 expected matches across a 55-transaction dataset with seeded partial, ambiguous and unmatched cases.</p>
+      <div class="tags"><span>Python</span><span>FastAPI</span><span>React</span><span>TypeScript</span><span>LangGraph</span><span>Groq</span><span>pgvector</span><span>PostgreSQL</span></div>
+      <a class="src" href="https://github.com/MahanteshPatil1214/FinPilot-AI">View source <i>↗</i></a></article>
     <article class="pj rv" style="--i:0"><span class="kind">Full stack + Payments</span><h3>AI Revenue Recovery</h3>
       <p>An autonomous engine that wins back failed subscription payments on Razorpay. It classifies each failure, retries soft ones with smart backoff, sends a payment link for hard ones, and tracks the money actually recovered on a live dashboard.</p>
       <div class="tags"><span>Java 21</span><span>Spring Boot</span><span>React</span><span>PostgreSQL</span><span>Razorpay</span><span>Docker</span></div>
