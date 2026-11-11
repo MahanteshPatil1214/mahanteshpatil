@@ -195,18 +195,23 @@
   margin: 0;
   color: var(--fog);
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 8.2vw, 7.6rem);
+  font-size: clamp(2rem, 10vw, 6rem);
   font-weight: 800;
-  letter-spacing: -0.065em;
-  line-height: 0.84;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
   text-transform: uppercase;
   text-align: center;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .nameLine {
   display: flex;
   align-items: baseline;
-  gap: clamp(1rem, 3vw, 3rem);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 3rem);
 }
 
 .nameLineSecond {
@@ -495,13 +500,17 @@
   margin: 0;
   flex: 0 0 auto;
   max-width: 22rem;
+  background: var(--carbon-2);
+  border-radius: 0.75rem;
 }
 
 .portrait img {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
   border: 1px solid var(--line-light);
+  border-radius: 0.75rem;
   filter: saturate(0.98) contrast(1.02);
   object-fit: cover;
   transition: transform 1.2s var(--ease);
@@ -1893,9 +1902,15 @@
   }
 
   .heroName {
-    font-size: clamp(1.8rem, 9vw, 4.6rem);
-    letter-spacing: -0.02em;
-    overflow-wrap: anywhere;
+    font-size: clamp(1.6rem, 10vw, 4rem);
+    letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+  }
+
+  .nameLine {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .heroIntro {
