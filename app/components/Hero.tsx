@@ -36,6 +36,16 @@ export default function Hero() {
               end-to-end products from data layer to interface.
             </p>
           </div>
+
+          <figure className={styles.portrait} data-reveal>
+            <img
+              src="/portrait.jpg"
+              alt="Mahantesh Patil"
+              width={600}
+              height={750}
+              loading="lazy"
+            />
+          </figure>
         </div>
 
         <div className={styles.heroFoot}>
@@ -53,8 +63,8 @@ export default function Hero() {
 
           <div className={styles.heroFootMeta}>
             <span>Kalaburagi · Karnataka · IN</span>
-            <a href="#statement" className={styles.scrollCue}>
-              <span>Scroll to read</span>
+            <a href="#work" className={styles.scrollCue}>
+              <span>View work</span>
               <span aria-hidden="true">↓</span>
             </a>
           </div>
