@@ -1,5 +1,5 @@
 import { caseStudies } from "@/app/data/projects";
-import { site } from "@/app/lib/constants";
+import { site, basePath } from "@/app/lib/constants";
 import styles from "./portfolio.module.scss";
 
 export default function Work() {
@@ -43,7 +43,7 @@ export default function Work() {
                 {project.image && (
                   <figure className={styles.caseThumbnail}>
                     <img
-                      src={project.image}
+                      src={`${basePath}${project.image}`}
                       alt={`${project.title} — project thumbnail`}
                       loading="lazy"
                       width={1280}
