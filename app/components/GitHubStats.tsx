@@ -3,35 +3,36 @@
 import { useEffect, useState } from "react";
 import styles from "./portfolio.module.scss";
 
+const USER = "MahanteshPatil1214";
+
 type GitHubUser = {
   login: string;
   public_repos: number;
   followers: number;
-  following: number;
   created_at: string;
 };
 
 type GitHubRepo = {
   stargazers_count: number;
-  forks_count: number;
-  fork: boolean;
   language: string | null;
   name: string;
-  full_name: string;
-  html_url: string;
-  description: string | null;
-  updated_at: string;
-  archived: boolean;
 };
 
-type GitHubEvent = {
-  type: string;
-  created_at: string;
-  repo: { name: string };
-  payload: { size?: number; commits?: Array<{ sha: string }> };
-};
-
-const USER = "MahanteshPatil1214";
+// Lifetime metrics that require a GitHub token for exact totals. These fall
+// back to the numbers you provided.
+const CONFIG = {
+  totalCommits: 678,
+  totalPRs: 15,
+  totalIssues: 6,
+  contributedLastYear: 2,
+  overallGrade: "B-",
+  totalContributions: 661,
+  contributionRange: "Apr 13, 2025 – Present",
+  currentStreak: 10,
+  currentStreakRange: "Nov 2 – Nov 11",
+  longestStreak: 46,
+  longestStreakRange: "Jul 18 – Sep 1",
+} as const;
 
 const gh = (path: string) =>
   fetch(`https://api.github.com${path}`, {
@@ -41,45 +42,50 @@ const gh = (path: string) =>
 export default function GitHubStats() {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [events, setEvents] = useState<GitHubEvent[]>([]);
+  const [languages, setLanguages] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
-  const [rateLimited, setRateLimited] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     const fetchStats = async () => {
       try {
-        const [userRes, repoRes, eventRes] = await Promise.allSettled([
+        const [userRes, repoRes] = await Promise.all([
           gh(`/users/${USER}`),
           gh(`/users/${USER}/repos?per_page=100&sort=updated`),
-          gh(`/users/${USER}/events/public?per_page=100`),
         ]);
 
-        if (userRes.status === "fulfilled" && !cancelled) {
-          const data = await userRes.value.json();
-          setUser(data);
-        }
-        if (repoRes.status === "fulfilled" && !cancelled) {
-          const data = await repoRes.value.json();
-          setRepos(Array.isArray(data) ? data : []);
-        }
-        if (eventRes.status === "fulfilled" && !cancelled) {
-          const data = await eventRes.value.json();
-          setEvents(Array.isArray(data) ? data : []);
-        }
+        if (!cancelled) {
+          const userData = await userRes.json();
+          setUser(userData);
 
-        // Detect rate limiting from any 403/401 response.
-        const limited =
-          [userRes, repoRes, eventRes].some(
-            (r) =>
-              r.status === "fulfilled" &&
-              (r.value.status === 403 || r.value.status === 401)
-          ) ||
-          [userRes, repoRes, eventRes].some((r) => r.status === "rejected");
-        setRateLimited(limited);
+          const repoData = await repoRes.json();
+          const repoList = Array.isArray(repoData) ? repoData : [];
+          setRepos(repoList);
+
+          const langCounts: Record<string, number> = {};
+          await Promise.all(
+            repoList.slice(0, 40).map(async (repo) => {
+              try {
+                const langRes = await gh(
+                  `/repos/${USER}/${repo.name}/languages`
+                );
+                if (langRes.ok) {
+                  const langData = await langRes.json();
+                  Object.entries(langData as Record<string, number>).forEach(
+                    ([lang, bytes]) => {
+                      langCounts[lang] = (langCounts[lang] || 0) + bytes;
+                    }
+                  );
+                }
+              } catch {
+                // ignore per-repo failures
+              }
+            })
+          );
+          setLanguages(langCounts);
+          setLoading(false);
+        }
       } catch {
-        setRateLimited(true);
-      } finally {
         if (!cancelled) setLoading(false);
       }
     };
@@ -89,208 +95,177 @@ export default function GitHubStats() {
     };
   }, []);
 
-  const totalStars = repos.reduce((sum, r) => sum + r.stargazers_count, 0);
-  const totalForks = repos.reduce((sum, r) => sum + r.forks_count, 0);
-  const publicRepos = repos.filter((r) => !r.archived).length;
-
-  const recentCommits = events.reduce((sum, e) => {
-    if (e.type === "PushEvent") {
-      return sum + (e.payload.commits?.length ?? e.payload.size ?? 0);
-    }
-    return sum;
-  }, 0);
-
-  const recentPRs = events.filter((e) => e.type === "PullRequestEvent").length;
-
-  const totalContributions = events.reduce((sum, e) => {
-    if (e.type === "PushEvent") {
-      return sum + (e.payload.commits?.length ?? e.payload.size ?? 0);
-    }
-    if (
-      ["PullRequestEvent", "IssuesEvent", "IssueCommentEvent"].includes(
-        e.type
-      )
-    ) {
-      return sum + 1;
-    }
-    return sum;
-  }, 0);
-
-  const languages: Record<string, number> = {};
-  repos.forEach((r) => {
-    if (r.language) {
-      languages[r.language] = (languages[r.language] || 0) + 1;
-    }
-  });
-  const topLangs = Object.entries(languages)
-    .sort(([, a], [, b]) => b - a)
+  const liveStars = repos.reduce((sum, r) => sum + r.stargazers_count, 0);
+  const totalBytes = Object.values(languages).reduce((a, b) => a + b, 0);
+  const langList = Object.entries(languages)
+    .map(([lang, bytes]) => ({
+      lang,
+      bytes,
+      pct: totalBytes ? (bytes / totalBytes) * 100 : 0,
+    }))
+    .sort((a, b) => b.pct - a.pct)
     .slice(0, 6);
 
-  const maxLang = topLangs.length ? Math.max(...topLangs.map(([, c]) => c)) : 1;
+  const statRows = [
+    {
+      label: "Total Stars Earned",
+      value: liveStars,
+      note: liveStars > 0 ? "live" : "",
+    },
+    {
+      label: "Total Commits",
+      value: CONFIG.totalCommits,
+    },
+    {
+      label: "Total PRs",
+      value: CONFIG.totalPRs,
+    },
+    {
+      label: "Total Issues",
+      value: CONFIG.totalIssues,
+    },
+    {
+      label: "Contributed to (last year)",
+      value: CONFIG.contributedLastYear,
+    },
+    {
+      label: "Overall Grade",
+      value: CONFIG.overallGrade,
+    },
+  ];
 
   if (loading) {
     return (
-      <div className={styles.githubStats} aria-label="GitHub activity">
+      <section className={styles.githubStats} aria-label="GitHub activity">
         <div className={styles.githubStatsCard}>
-          <div className={styles.githubStatsHeader}>
-            <h3 className={styles.githubStatsTitle}>GitHub</h3>
-            <span className={styles.githubStatsDot} aria-hidden="true">●</span>
-          </div>
           <div className={styles.githubStatsPlaceholder}>
             <span className={styles.githubStatsLoading}>loading</span>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  if (rateLimited && !user && !repos.length) {
-    return (
-      <div className={styles.githubStats} aria-label="GitHub activity">
-        <div className={styles.githubStatsCard}>
-          <div className={styles.githubStatsHeader}>
-            <h3 className={styles.githubStatsTitle}>GitHub</h3>
-            <span className={styles.githubStatsDot} aria-hidden="true">●</span>
-          </div>
-          <div className={styles.githubStatsPlaceholder}>
-            GitHub stats temporarily unavailable (rate limited).{" "}
-            <a
-              href={`https://github.com/${USER}`}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.githubStatsLink}
-            >
-              view profile →
-            </a>
-          </div>
-        </div>
-      </div>
+      </section>
     );
   }
 
   return (
     <section className={styles.githubStats} aria-label="GitHub activity">
       <div className={styles.githubStatsCard}>
-        <div className={styles.githubStatsHeader}>
-          <div>
-            <h3 className={styles.githubStatsTitle}>GitHub</h3>
-            <p className={styles.githubStatsMeta}>
-              @{user?.login ?? USER} · {publicRepos} public repos
-            </p>
-          </div>
-          <span className={styles.githubStatsDot} aria-hidden="true">●</span>
-        </div>
-
-        <div className={styles.githubStatsGrid}>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>
-              {user?.public_repos ?? 0}
-            </span>
-            <span className={styles.githubStatLabel}>repositories</span>
-          </div>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>{totalStars}</span>
-            <span className={styles.githubStatLabel}>stars</span>
-          </div>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>{totalForks}</span>
-            <span className={styles.githubStatLabel}>forks</span>
-          </div>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>{recentCommits}</span>
-            <span className={styles.githubStatLabel}>recent commits</span>
-          </div>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>{recentPRs}</span>
-            <span className={styles.githubStatLabel}>recent pull requests</span>
-          </div>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>
-              {user?.followers ?? 0}
-            </span>
-            <span className={styles.githubStatLabel}>followers</span>
-          </div>
-          <div className={styles.githubStat}>
-            <span className={styles.githubStatValue}>
-              {totalContributions}
-            </span>
-            <span className={styles.githubStatLabel}>total contributions</span>
+        {/* 1. GitHub Stats */}
+        <div className={styles.githubStatsBlock}>
+          <h3 className={styles.githubStatsTitle}>GitHub Stats</h3>
+          <p className={styles.githubStatsMeta}>
+            Mahantesh Patil's GitHub Stats
+          </p>
+          <div className={styles.githubStatsGrid}>
+            {statRows.map((row) => (
+              <div
+                key={row.label}
+                className={styles.githubStat}
+              >
+                <span className={styles.githubStatLabel}>
+                  {row.label}
+                </span>
+                <span className={styles.githubStatValue}>
+                  {row.value}
+                </span>
+                {row.note && (
+                  <span className={styles.githubStatsNote}>{row.note}</span>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
-        {topLangs.length && (
-          <div className={styles.githubStatsLanguages}>
-            <span className={styles.githubStatsSectionLabel}>
-              top languages
-            </span>
-            <div className={styles.githubStatsLanguageList}>
-              {topLangs.map(([lang, count], i) => {
-                const width = (count / maxLang) * 100;
-                const hue = (i * 40) % 360;
-                return (
-                  <div
-                    key={lang}
-                    className={styles.githubStatsLanguage}
-                    style={{
-                      "--lang-hue": String(hue),
-                      "--lang-width": `${width}%`,
-                    } as React.CSSProperties}
-                  >
-                    <span className={styles.githubStatsLanguageName}>{lang}</span>
-                    <span className={styles.githubStatsLanguageCount}>
-                      {count}
-                    </span>
-                  </div>
-                );
-              })}
+        {/* 2. Contribution Streak Stats */}
+        <div className={styles.githubStatsBlock}>
+          <h3 className={styles.githubStatsTitle}>
+            Contribution Streak Stats
+          </h3>
+          <div className={styles.githubStatsGrid}>
+            <div className={`${styles.githubStat} ${styles.githubStatWide}`}>
+              <span className={styles.githubStatLabel}>
+                Total Contributions
+              </span>
+              <span className={styles.githubStatValue}>
+                {CONFIG.totalContributions}
+              </span>
+              <span className={styles.githubStatsNote}>
+                {CONFIG.contributionRange}
+              </span>
+            </div>
+            <div className={`${styles.githubStat} ${styles.githubStatWide}`}>
+              <span className={styles.githubStatLabel}>
+                Current Streak
+              </span>
+              <span className={styles.githubStatValue}>
+                {CONFIG.currentStreak} days
+              </span>
+              <span className={styles.githubStatsNote}>
+                {CONFIG.currentStreakRange}
+              </span>
+            </div>
+            <div className={`${styles.githubStat} ${styles.githubStatWide}`}>
+              <span className={styles.githubStatLabel}>
+                Longest Streak
+              </span>
+              <span className={styles.githubStatValue}>
+                {CONFIG.longestStreak} days
+              </span>
+              <span className={styles.githubStatsNote}>
+                {CONFIG.longestStreakRange}
+              </span>
             </div>
           </div>
-        )}
+        </div>
 
-        {(recentCommits > 0 || recentPRs > 0) && (
-          <div className={styles.githubStatsActivity}>
-            <span className={styles.githubStatsSectionLabel}>
-              recent activity
-            </span>
-            <div className={styles.githubStatsActivityList}>
-              {recentCommits > 0 && (
-                <div className={styles.githubStatsActivityItem}>
-                  <span className={styles.githubStatsActivityIcon}>●</span>
-                  <div>
-                    <span className={styles.githubStatsActivityValue}>
-                      {recentCommits}
-                    </span>
-                    <span className={styles.githubStatsActivityLabel}>
-                      commits (100 events)
-                    </span>
-                  </div>
+        {/* 3. Most Used Languages */}
+        <div className={styles.githubStatsBlock}>
+          <h3 className={styles.githubStatsTitle}>Most Used Languages</h3>
+          <div className={styles.githubStatsLanguageList}>
+            {langList.length > 0 ? (
+              langList.map(({ lang, pct }) => (
+                <div
+                  key={lang}
+                  className={styles.githubStatsLanguage}
+                  style={{
+                    "--lang-width": `${pct}%`,
+                  } as React.CSSProperties}
+                >
+                  <span className={styles.githubStatsLanguageName}>
+                    {lang}
+                  </span>
+                  <span className={styles.githubStatsLanguageCount}>
+                    {pct.toFixed(2)}%
+                  </span>
                 </div>
-              )}
-              {recentPRs > 0 && (
-                <div className={styles.githubStatsActivityItem}>
-                  <span className={styles.githubStatsActivityIcon}>●</span>
-                  <div>
-                    <span className={styles.githubStatsActivityValue}>
-                      {recentPRs}
-                    </span>
-                    <span className={styles.githubStatsActivityLabel}>
-                      pull requests (100 events)
-                    </span>
-                  </div>
+              ))
+            ) : (
+              // Fallback to your provided percentages
+              [
+                { lang: "Python", pct: 29.97 },
+                { lang: "TypeScript", pct: 28.49 },
+                { lang: "Java", pct: 20.45 },
+                { lang: "JavaScript", pct: 17.79 },
+                { lang: "HTML", pct: 1.92 },
+                { lang: "CSS", pct: 1.38 },
+              ].map(({ lang, pct }) => (
+                <div
+                  key={lang}
+                  className={styles.githubStatsLanguage}
+                  style={{
+                    "--lang-width": `${pct}%`,
+                  } as React.CSSProperties}
+                >
+                  <span className={styles.githubStatsLanguageName}>
+                    {lang}
+                  </span>
+                  <span className={styles.githubStatsLanguageCount}>
+                    {pct.toFixed(2)}%
+                  </span>
                 </div>
-              )}
-            </div>
+              ))
+            )}
           </div>
-        )}
-
-        <a
-          href={`https://github.com/${USER}`}
-          target="_blank"
-          rel="noreferrer"
-          className={styles.githubStatsLink}
-        >
-          view on github <span aria-hidden="true">→</span>
-        </a>
+        </div>
       </div>
     </section>
   );
