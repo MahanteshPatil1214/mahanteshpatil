@@ -107,6 +107,34 @@
   text-align: right;
 }
 
+.themeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 0.5rem;
+  background: var(--carbon-2);
+  color: var(--fog);
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.themeToggle:hover {
+  border-color: var(--line-dark-soft);
+  transform: rotate(-15deg);
+}
+
+.themeToggleIcon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
 .availability {
   display: inline-flex;
   align-items: center;

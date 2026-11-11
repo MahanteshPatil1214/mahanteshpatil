@@ -1,4 +1,5 @@
 import Clock from "./Clock";
+import ThemeToggle from "./ThemeToggle";
 import styles from "./portfolio.module.scss";
 
 export default function TopBar() {
@@ -30,6 +31,7 @@ export default function TopBar() {
           Kalaburagi, Karnataka / IST
           <Clock className={styles.clock} />
         </span>
+        <ThemeToggle />
       </div>
     </header>
   );

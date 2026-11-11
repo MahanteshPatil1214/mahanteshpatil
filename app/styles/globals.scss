@@ -34,6 +34,55 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Light theme overrides */
+[data-theme="light"] {
+  --carbon: #f7f7f8;
+  --carbon-2: #f1f1f3;
+  --carbon-3: #e8e8ea;
+  --paper: #ffffff;
+  --paper-2: #f7f7f8;
+  --ink: #0e1013;
+  --ink-2: #4b4e55;
+  --ink-3: #71757d;
+  --fog: #0e1013;
+  --fog-2: #4b4e55;
+  --fog-3: #71757d;
+  --accent: #b4422a;
+  --accent-dark: #8a3320;
+
+  --line-dark: rgba(14, 16, 19, 0.10);
+  --line-dark-soft: rgba(14, 16, 19, 0.05);
+  --line-light: rgba(14, 16, 19, 0.10);
+  --line-light-soft: rgba(14, 16, 19, 0.05);
+}
+
+/* Theme transition — smooth background/text/border swaps */
+html,
+body {
+  transition:
+    background-color 0.5s var(--ease),
+    color 0.5s var(--ease);
+}
+
+.githubStatsCard,
+.githubStat,
+.githubStatsLanguage,
+.githubStatsActivityItem,
+.githubStatsRepo,
+.caseStudy,
+.matrixRow,
+.footer,
+.hero,
+.work,
+.stack,
+.statement,
+.sectionBar {
+  transition:
+    background-color 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    color 0.5s var(--ease);
+}
+
 *,
 *::before,
 *::after {
