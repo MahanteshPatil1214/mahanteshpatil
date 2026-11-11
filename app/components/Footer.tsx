@@ -54,6 +54,31 @@ export default function Footer() {
               </a>
             </div>
           </div>
+
+          <div className={styles.githubStats} data-reveal>
+            <h3 className={styles.githubStatsTitle}>GitHub</h3>
+            <div className={styles.githubStatsImages}>
+              <img
+                src="https://github-readme-stats.shion.dev/api?username=MahanteshPatil1214&theme=calm_pink&hide_border=false&include_all_commits=true&count_private=true"
+                alt="GitHub stats"
+                loading="lazy"
+              />
+              <br />
+              <br />
+              <img
+                src="https://streak-stats.demolab.com/?user=MahanteshPatil1214&theme=calm_pink&hide_border=false"
+                alt="GitHub streak"
+                loading="lazy"
+              />
+              <br />
+              <br />
+              <img
+                src="https://github-readme-stats.shion.dev/api/top-langs/?username=MahanteshPatil1214&theme=calm_pink&hide_border=false&include_all_commits=true&count_private=true&layout=compact"
+                alt="Top languages"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
 
         <div className={styles.footerBottom} data-reveal>
