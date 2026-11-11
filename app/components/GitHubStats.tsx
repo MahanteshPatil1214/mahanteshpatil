@@ -102,6 +102,20 @@ export default function GitHubStats() {
 
   const recentPRs = events.filter((e) => e.type === "PullRequestEvent").length;
 
+  const totalContributions = events.reduce((sum, e) => {
+    if (e.type === "PushEvent") {
+      return sum + (e.payload.commits?.length ?? e.payload.size ?? 0);
+    }
+    if (
+      ["PullRequestEvent", "IssuesEvent", "IssueCommentEvent"].includes(
+        e.type
+      )
+    ) {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+
   const languages: Record<string, number> = {};
   repos.forEach((r) => {
     if (r.language) {
@@ -113,10 +127,6 @@ export default function GitHubStats() {
     .slice(0, 6);
 
   const maxLang = topLangs.length ? Math.max(...topLangs.map(([, c]) => c)) : 1;
-
-  const recentRepos = repos
-    .filter((r) => !r.fork && !r.archived)
-    .slice(0, 6);
 
   if (loading) {
     return (
@@ -200,6 +210,12 @@ export default function GitHubStats() {
             </span>
             <span className={styles.githubStatLabel}>followers</span>
           </div>
+          <div className={styles.githubStat}>
+            <span className={styles.githubStatValue}>
+              {totalContributions}
+            </span>
+            <span className={styles.githubStatLabel}>total contributions</span>
+          </div>
         </div>
 
         {topLangs.length && (
@@ -263,40 +279,6 @@ export default function GitHubStats() {
                   </div>
                 </div>
               )}
-            </div>
-          </div>
-        )}
-
-        {recentRepos.length > 0 && (
-          <div className={styles.githubStatsRecent}>
-            <span className={styles.githubStatsSectionLabel}>
-              recent repositories
-            </span>
-            <div className={styles.githubStatsRepoList}>
-              {recentRepos.map((repo) => (
-                <a
-                  key={repo.full_name}
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.githubStatsRepo}
-                >
-                  <span className={styles.githubStatsRepoName}>{repo.name}</span>
-                  {repo.description && (
-                    <span className={styles.githubStatsRepoDesc}>
-                      {repo.description}
-                    </span>
-                  )}
-                  <span className={styles.githubStatsRepoStar}>
-                    ⭐ {repo.stargazers_count}
-                  </span>
-                  {repo.language && (
-                    <span className={styles.githubStatsRepoLang}>
-                      {repo.language}
-                    </span>
-                  )}
-                </a>
-              ))}
             </div>
           </div>
         )}
