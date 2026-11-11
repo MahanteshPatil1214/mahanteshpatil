@@ -53,7 +53,7 @@ export default function GitHubStats() {
 
   if (loading) {
     return (
-      <div className={styles.githubStats} data-reveal>
+      <div className={styles.githubStats}>
         <h3 className={styles.githubStatsTitle}>GitHub</h3>
         <div className={styles.githubStatsPlaceholder}>
           <span className={styles.githubStatsLoading}>loading</span>
@@ -77,7 +77,7 @@ export default function GitHubStats() {
   const maxLang = topLangs.length ? Math.max(...topLangs.map(([, c]) => c)) : 1;
 
   return (
-    <section className={styles.githubStats} data-reveal aria-label="GitHub activity">
+    <section className={styles.githubStats} aria-label="GitHub activity">
       <div className={styles.githubStatsCard}>
         <div className={styles.githubStatsHeader}>
           <h3 className={styles.githubStatsTitle}>GitHub</h3>
