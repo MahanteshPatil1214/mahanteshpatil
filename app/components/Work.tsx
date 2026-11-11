@@ -10,7 +10,7 @@ export default function Work() {
           <span className={styles.sectionTag}>
             02 / Selected Engineering Work
           </span>
-          <span className={styles.sectionMeta}>04 systems · 2025—2026</span>
+          <span className={styles.sectionMeta}>05 systems · 2025—2026</span>
         </div>
 
         <div className={styles.workHeader}>
@@ -40,6 +40,17 @@ export default function Work() {
               </div>
 
               <div className={styles.caseBody}>
+                {project.image && (
+                  <figure className={styles.caseThumbnail}>
+                    <img
+                      src={project.image}
+                      alt={`${project.title} — project thumbnail`}
+                      loading="lazy"
+                      width={1280}
+                      height={720}
+                    />
+                  </figure>
+                )}
                 <div className={styles.caseTitleRow}>
                   <h3 className={styles.caseTitle}>{project.title}</h3>
                   <a

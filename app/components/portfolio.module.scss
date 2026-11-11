@@ -678,6 +678,29 @@
   line-height: 1.6;
 }
 
+.caseThumbnail {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 0.75rem;
+  border: 1px solid var(--line-light);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--line-light-soft);
+}
+
+.caseThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease);
+}
+
+.caseStudy:hover .caseThumbnail img {
+  transform: scale(1.03);
+}
+
 .caseDetail {
   display: grid;
   grid-template-columns: 1fr 1fr;

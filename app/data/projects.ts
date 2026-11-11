@@ -17,30 +17,47 @@ export type CaseStudy = {
   metrics: Metric[];
   link: string;
   linkLabel: string;
+  image?: string;
 };
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "finpilot-ai",
+    id: "keylo",
     index: "01",
-    title: "FinPilot AI",
-    discipline: "AI · Fintech",
+    title: "Keylo",
+    discipline: "AI · Real Estate",
     year: "2025",
-    role: "Full-stack + AI Engineer",
+    role: "Full-stack Engineer",
     summary:
-      "Financial operations and automated reconciliation with citations, evidence gates, and a human-in-the-loop review path.",
+      "AI-powered real estate sales platform with a multilingual buyer assistant, role-based access control, and containerized full-stack deployment.",
     challenge:
-      "Finance teams need answers over PDFs and CSVs, but generic chat hallucinates and has no concept of an evidence threshold. Reconciling transactions with floating-point arithmetic quietly introduces a second class of errors.",
+      "Real estate sales teams needed a unified platform to manage leads, property visits, and bookings across buyers, sales executives, and admins—with multilingual AI support for buyers and strict role-based access for staff.",
     response:
-      "A LangGraph workflow gates retrieval on evidence sufficiency, cites every claim, and escalates low-confidence cases to a review queue. Reconciliation runs on Python Decimal, not floats, with explicit handling for partial and ambiguous matches.",
-    stack: ["Python", "FastAPI", "LangGraph", "Groq", "pgvector", "PostgreSQL", "React"],
-    metrics: [
-      { value: "~1.5s", label: "cited answer path" },
-      { value: "35 / 35", label: "seeded matches found" },
-      { value: "HITL", label: "review queue" },
+      "Built a full-stack real estate sales platform with FastAPI, SQLAlchemy 2.0, and React 19, organized into 19 backend modules and 120+ API routes. Integrated a Groq-powered AI assistant for multilingual buyer chat (English, Hindi, Gujarati) with escalation handoffs to sales executives. Implemented role-based access control for 3 roles (Buyer, Sales Executive, Admin) using JWT claims, FastAPI dependencies, and bcrypt password hashing. Wrote 224 backend tests (all passing) with Pytest, plus 7 end-to-end scripts covering login, admin, sales, and buyer flows. Containerized the full stack with Docker Compose (backend, PostgreSQL, frontend) and an idempotent seed script that loads 125 leads, 470 visit slots, and 42 bookings in one command.",
+    stack: [
+      "Python",
+      "FastAPI",
+      "SQLAlchemy",
+      "Alembic",
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "SQLite",
+      "Groq API",
+      "JWT",
+      "Docker",
+      "Pytest",
     ],
-    link: "https://github.com/MahanteshPatil1214/FinPilot-AI",
-    linkLabel: "View FinPilot AI on GitHub",
+    metrics: [
+      { value: "120+", label: "API routes" },
+      { value: "224", label: "backend tests" },
+      { value: "Docker", label: "containerized" },
+    ],
+    link: "https://github.com/MahanteshPatil1214/Keylo",
+    linkLabel: "View Keylo on GitHub",
+    image: "/data/Keylo.png",
   },
   {
     id: "crime-analytics",
@@ -63,32 +80,11 @@ export const caseStudies: CaseStudy[] = [
     ],
     link: "https://github.com/MahanteshPatil1214/crime-analytics-platform",
     linkLabel: "View Crime Analytics Platform on GitHub",
-  },
-  {
-    id: "callora",
-    index: "03",
-    title: "Callora",
-    discipline: "AI · Voice",
-    year: "2025",
-    role: "AI Platform Engineer",
-    summary:
-      "A low-latency autonomous voice agent platform built around a full-duplex agent loop, tool use, and recoverable sessions.",
-    challenge:
-      "Autonomous voice needs a response loop fast enough to feel human while keeping tool calls, interruption handling, and session state coherent across reconnects.",
-    response:
-      "A FastAPI and WebSocket gateway streams audio and agent output, LangGraph manages turn-level tool use, and Redis holds session state so a dropped connection does not reset the conversation.",
-    stack: ["FastAPI", "LangGraph", "Redis", "WebSockets", "Python", "React"],
-    metrics: [
-      { value: "Full-duplex", label: "audio loop" },
-      { value: "Redis", label: "session state" },
-      { value: "Tool-use", label: "turn control" },
-    ],
-    link: "https://github.com/MahanteshPatil1214",
-    linkLabel: "View Mahantesh Patil's repositories on GitHub",
+    image: "/data/Crime%20Analytics%20Platform%20Dashboard.png",
   },
   {
     id: "veridoc-ai",
-    index: "04",
+    index: "03",
     title: "VeriDoc-AI",
     discipline: "AI · Document intelligence",
     year: "2026",
@@ -107,6 +103,30 @@ export const caseStudies: CaseStudy[] = [
     ],
     link: "https://github.com/MahanteshPatil1214/VeriDoc-AI",
     linkLabel: "View VeriDoc-AI on GitHub",
+    image: "/data/Veridoc.png",
+  },
+  {
+    id: "callora",
+    index: "04",
+    title: "Callora",
+    discipline: "AI · Voice",
+    year: "2025",
+    role: "AI Platform Engineer",
+    summary:
+      "A low-latency autonomous voice agent platform built around a full-duplex agent loop, tool use, and recoverable sessions.",
+    challenge:
+      "Autonomous voice needs a response loop fast enough to feel human while keeping tool calls, interruption handling, and session state coherent across reconnects.",
+    response:
+      "A FastAPI and WebSocket gateway streams audio and agent output, LangGraph manages turn-level tool use, and Redis holds session state so a dropped connection does not reset the conversation.",
+    stack: ["FastAPI", "LangGraph", "Redis", "WebSockets", "Python", "React"],
+    metrics: [
+      { value: "Full-duplex", label: "audio loop" },
+      { value: "Redis", label: "session state" },
+      { value: "Tool-use", label: "turn control" },
+    ],
+    link: "https://github.com/MahanteshPatil1214",
+    linkLabel: "View Mahantesh Patil's repositories on GitHub",
+    image: "/data/Callora.png",
   },
 ];
 
