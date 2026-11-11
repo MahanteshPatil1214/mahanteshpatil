@@ -10,35 +10,28 @@ export default function Hero() {
         <TopBar />
 
         <div className={styles.heroMain}>
-          <figure className={styles.portrait} data-reveal>
-            <img
-              src="/portrait.jpg"
-              alt="Mahantesh Patil"
-              width={600}
-              height={750}
-              loading="lazy"
-            />
-          </figure>
+          <h1 id="hero-name" className={styles.heroName}>
+            <span className={styles.nameLine}>
+              <span className={styles.nameWord}>Mahantesh</span>
+              <span className={styles.nameWord}>Patil</span>
+            </span>
+            <span className={styles.nameAside} aria-hidden="true">
+              Software / AI / Systems
+            </span>
+          </h1>
 
-          <div className={styles.heroText}>
-            <div className={styles.heroEdition}>
-              <span>Portfolio / 2026</span>
-              <span>Edition 01</span>
-            </div>
+          <div className={styles.heroBody}>
+            <figure className={styles.portrait} data-reveal>
+              <img
+                src="/portrait.jpg"
+                alt="Mahantesh Patil"
+                width={600}
+                height={750}
+                loading="lazy"
+              />
+            </figure>
 
-            <h1 id="hero-name" className={styles.heroName}>
-              <span className={styles.nameLine}>
-                <span className={styles.nameWord}>Mahantesh</span>
-              </span>
-              <span className={`${styles.nameLine} ${styles.nameLineSecond}`}>
-                <span className={styles.nameWord}>Patil</span>
-                <span className={styles.nameAside} aria-hidden="true">
-                  Software / AI / Systems
-                </span>
-              </span>
-            </h1>
-
-            <div className={styles.heroIntro}>
+            <div className={styles.heroType}>
               <p className={styles.heroRole}>
                 Software Engineer &amp; AI Systems Builder.
               </p>
