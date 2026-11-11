@@ -1894,6 +1894,8 @@
 
   .heroName {
     font-size: clamp(1.8rem, 9vw, 4.6rem);
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
   }
 
   .heroIntro {

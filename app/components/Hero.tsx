@@ -21,7 +21,7 @@ export default function Hero() {
           </h1>
 
           <div className={styles.heroBody}>
-            <figure className={styles.portrait} data-reveal>
+            <figure className={styles.portrait}>
               <img
                 src="/portrait.jpg"
                 alt="Mahantesh Patil"
