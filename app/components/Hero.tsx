@@ -1,4 +1,4 @@
-import { site } from "@/app/lib/constants";
+import { site, basePath } from "@/app/lib/constants";
 import CopyEmail from "./CopyEmail";
 import TopBar from "./TopBar";
 import styles from "./portfolio.module.scss";
@@ -23,11 +23,11 @@ export default function Hero() {
           <div className={styles.heroBody}>
             <figure className={styles.portrait}>
               <img
-                src="/portrait.jpg"
+                src={`${basePath}/portrait.jpg`}
                 alt="Mahantesh Patil"
                 width={600}
                 height={750}
-                loading="lazy"
+                loading="eager"
               />
             </figure>
 
