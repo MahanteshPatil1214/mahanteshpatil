@@ -1,4 +1,4 @@
-import { stackLayers, terminalStats } from "@/app/data/stack";
+import { stackLayers } from "@/app/data/stack";
 import styles from "./portfolio.module.scss";
 
 export default function Stack() {
@@ -36,37 +36,6 @@ export default function Stack() {
               </ul>
             </div>
           ))}
-        </div>
-
-        <div
-          className={styles.terminal}
-          role="group"
-          aria-label="System profile"
-          data-reveal
-        >
-          <div className={styles.terminalBar}>
-            <span>system.profile</span>
-            <span className={styles.terminalLights} aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-          </div>
-          <div className={styles.terminalBody}>
-            <p className={styles.terminalPrompt}>
-              <span aria-hidden="true">$</span>
-              <span className={styles.terminalCommand}>profile --summary</span>
-              <span className={styles.terminalCaret} aria-hidden="true" />
-            </p>
-            <dl>
-              {terminalStats.map((stat) => (
-                <div className={styles.terminalRow} key={stat.key}>
-                  <dt>{stat.key}</dt>
-                  <dd>{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
         </div>
       </div>
     </section>
