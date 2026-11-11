@@ -130,19 +130,6 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
-export const focusPoints = [
-  {
-    index: "01",
-    title: "Technical discipline",
-    body: "Clean domain boundaries, explicit failure states, and observability that survives production. Low latency is a design decision, not an afterthought.",
-  },
-  {
-    index: "02",
-    title: "Product thinking",
-    body: "Scope, trade-offs, and interface decisions made from the user's side of the system. The last 10% is where the product becomes legible.",
-  },
-];
-
 export const principles = [
   "Clean boundaries",
   "Low latency",
