@@ -220,6 +220,7 @@
 
 .nameWord {
   display: block;
+  white-space: nowrap;
 }
 
 :global(html.js) .nameWord {
