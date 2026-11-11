@@ -1,0 +1,733 @@
+/* ------------------------------------------------------------------
+   Keylo case study — clean light editorial theme.
+   White paper, dark ink, restrained oxide accent. No black.
+------------------------------------------------------------------- */
+
+.casePage {
+  position: relative;
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.casePage a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Top nav / back ------------------------------------------------- */
+
+.caseTop {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line-light);
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.11em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  background: var(--white);
+}
+
+.caseBack {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink-3);
+  transition: color 0.2s var(--ease);
+}
+
+.caseBack:hover {
+  color: var(--accent);
+}
+
+/* Container ------------------------------------------------------ */
+
+.caseContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  padding-inline: 1.5rem;
+}
+
+/* Hero ----------------------------------------------------------- */
+
+.caseHero {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--line-light);
+  background: var(--white);
+}
+
+.caseEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.caseTitle {
+  margin: 0 0 1rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.caseSubtitle {
+  max-width: 56rem;
+  margin: 0 0 2rem 0;
+  color: var(--ink-2);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.caseMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.caseMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.caseActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 2rem;
+}
+
+.caseAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.9rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition:
+    background-color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.caseAction--primary {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.caseAction--primary:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.caseAction--secondary {
+  border-color: var(--line-light);
+  color: var(--ink-3);
+}
+
+.caseAction--secondary:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
+
+/* Problem statement ---------------------------------------------- */
+
+.caseProblem {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--line-light);
+  background: var(--paper-2);
+}
+
+.caseProblemTitle {
+  margin: 0 0 1rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.caseProblemText {
+  max-width: 52rem;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Shared section ------------------------------------------------- */
+
+.caseSection {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  border-bottom: 1px solid var(--line-light);
+  background: var(--white);
+}
+
+.caseSection--paper {
+  background: var(--paper-2);
+}
+
+.caseSectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.caseSectionIndex {
+  color: var(--accent-dark);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.caseSectionTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.caseSectionIntro {
+  max-width: 60rem;
+  margin: 0 0 clamp(2rem, 4vw, 3rem) 0;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* STAR ----------------------------------------------------------- */
+
+.starGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.starCard {
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 0.75rem;
+  transition: box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.starCard:hover {
+  box-shadow: 0 8px 24px rgba(16, 17, 20, 0.06);
+  border-color: var(--line-light-soft);
+}
+
+.starCardHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.starCardIndex {
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.starCardTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.starCard p {
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0 0 1rem 0;
+}
+
+.starCard ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.starCard ul li {
+  margin-bottom: 0.6rem;
+}
+
+.statList {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.statItem {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line-light-soft);
+}
+
+.statLabel {
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.statValue {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Architecture text ---------------------------------------------- */
+
+.archText {
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0 0 1.25rem 0;
+}
+
+.moduleList {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem 0;
+}
+
+.moduleItem {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line-light-soft);
+  font-size: 0.85rem;
+}
+
+.moduleName {
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.moduleDesc {
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.capList {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.capList li {
+  margin-bottom: 0.75rem;
+}
+
+.decisionList {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.decisionList li {
+  margin-bottom: 0.75rem;
+}
+
+/* Result metrics ------------------------------------------------- */
+
+.resultMetrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 760px) {
+  .resultMetrics {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.metricCard {
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+}
+
+.metricValue {
+  margin: 0 0 0.25rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.metricLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.resultNote {
+  border-top: 1px solid var(--line-light-soft);
+  padding-top: 1rem;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+/* System design diagrams ----------------------------------------- */
+
+.diagramGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.diagramFigure {
+  margin: 0;
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: box-shadow 0.25s var(--ease);
+}
+
+.diagramFigure:hover {
+  box-shadow: 0 8px 24px rgba(16, 17, 20, 0.08);
+}
+
+.diagramImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 420px;
+  object-fit: contain;
+  background: var(--paper-2);
+}
+
+.diagramCaption {
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  border-top: 1px solid var(--line-light-soft);
+  background: var(--white);
+}
+
+.diagramNote {
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  border-top: 1px solid var(--line-light-soft);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+/* Tradeoffs table ------------------------------------------------ */
+
+.tradeoffTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.tradeoffTable th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 2px solid var(--line-light);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.tradeoffTable td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line-light-soft);
+  line-height: 1.6;
+  vertical-align: top;
+  color: var(--ink-2);
+}
+
+.tradeoffTable tr:last-child td {
+  border-bottom: 0;
+}
+
+.tradeoffTable tr:hover td {
+  background: var(--paper-2);
+}
+
+.tradeoffDecision {
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.tradeoffChosen {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Components table ----------------------------------------------- */
+
+.componentTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.componentTable th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 2px solid var(--line-light);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.componentTable td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line-light-soft);
+  line-height: 1.6;
+  vertical-align: top;
+  color: var(--ink-2);
+}
+
+.componentTable tr:last-child td {
+  border-bottom: 0;
+}
+
+.componentTable tr:hover td {
+  background: var(--paper-2);
+}
+
+.componentName {
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Lessons -------------------------------------------------------- */
+
+.lessonsList {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.lessonsList li {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  border-radius: 0.75rem;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  transition: box-shadow 0.25s var(--ease);
+}
+
+.lessonsList li:hover {
+  box-shadow: 0 4px 12px rgba(16, 17, 20, 0.06);
+}
+
+.lessonsList li strong {
+  color: var(--ink);
+}
+
+/* Tech stack chips ----------------------------------------------- */
+
+.stackGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 760px) {
+  .stackGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stackChip {
+  border: 1px solid var(--line-light);
+  background: var(--white);
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.stackChip:hover {
+  border-color: var(--accent-dark);
+  color: var(--accent-dark);
+}
+
+/* Back to portfolio ---------------------------------------------- */
+
+.caseFoot {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--line-light);
+  background: var(--white);
+}
+
+.caseFootInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.caseFoot a {
+  padding-bottom: 0.18rem;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition:
+    border-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.caseFoot a:hover {
+  border-color: var(--accent-dark);
+  color: var(--accent-dark);
+}
+
+/* Responsive ----------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .caseTop {
+    grid-template-columns: 1fr auto;
+    row-gap: 0.9rem;
+  }
+
+  .caseHero {
+    padding-block: clamp(2rem, 6vw, 4rem);
+  }
+
+  .caseSection {
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+
+  .resultMetrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .diagramGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stackGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .caseFootInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .moduleItem {
+    grid-template-columns: 1fr;
+  }
+}

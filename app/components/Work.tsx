@@ -1,6 +1,7 @@
 import { caseStudies } from "@/app/data/projects";
 import { site, basePath } from "@/app/lib/constants";
 import styles from "./portfolio.module.scss";
+import Link from "next/link";
 
 export default function Work() {
   return (
@@ -53,15 +54,25 @@ export default function Work() {
                 )}
                 <div className={styles.caseTitleRow}>
                   <h3 className={styles.caseTitle}>{project.title}</h3>
-                  <a
-                    className={styles.caseLink}
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={project.linkLabel}
-                  >
-                    <span aria-hidden="true">↗</span>
-                  </a>
+                  {project.id === "keylo" ? (
+                    <Link
+                      className={styles.caseLink}
+                      href="/projects/keylo"
+                      aria-label={`Read Keylo case study`}
+                    >
+                      <span aria-hidden="true">↗</span>
+                    </Link>
+                  ) : (
+                    <a
+                      className={styles.caseLink}
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={project.linkLabel}
+                    >
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
                 </div>
 
                 <p className={styles.caseLede}>{project.summary}</p>

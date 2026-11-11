@@ -6,6 +6,7 @@ import {
   Syne,
 } from "next/font/google";
 import "./styles/globals.scss";
+import "@/app/case-study-tailwind.css";
 
 const syne = Syne({
   subsets: ["latin"],
