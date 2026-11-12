@@ -59,7 +59,7 @@ export default async function CaseStudyPage({
       <section className="bg-[#0C0D0E] text-[#ECEEDF] min-h-screen py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <Link
-            href={`${basePath}/`}
+            href="/"
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-[#E25C38] transition-colors mb-8"
             aria-label="Back to portfolio"
           >
@@ -112,7 +112,7 @@ export default async function CaseStudyPage({
       <nav className="sticky top-0 z-40 h-16 backdrop-blur-md bg-[#0C0D0E]/80 border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
           <Link
-            href={`${basePath}/`}
+            href="/"
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-[#E25C38] transition-colors"
             aria-label="Back to portfolio"
           >
