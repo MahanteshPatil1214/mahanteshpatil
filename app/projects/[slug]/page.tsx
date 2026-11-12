@@ -177,9 +177,9 @@ export default async function CaseStudyPage({
                 {keyloMetrics.map((m: any) => (
                   <div
                     key={m.value}
-                    className="bg-neutral-900/40 border border-white/5 rounded-xl p-6 hover:border-[#E25C38]/40 transition-colors"
+                    className="max-w-full overflow-hidden bg-neutral-900/40 border border-white/5 rounded-xl p-6 hover:border-[#E25C38]/40 transition-colors"
                   >
-                    <p className="text-4xl md:text-5xl font-mono font-bold text-white mb-1">
+                    <p className="text-[clamp(1.5rem,6vw,4rem)] md:text-[clamp(1.75rem,7vw,4.5rem)] font-mono font-bold text-white mb-1 overflow-hidden overflow-wrap-anywhere">
                       {m.value}
                     </p>
                     <p className="text-sm font-mono text-[#E25C38] uppercase tracking-wider mb-2">
@@ -293,9 +293,9 @@ export default async function CaseStudyPage({
                 {s.star.result.metrics.map((m: any) => (
                   <div
                     key={m.value}
-                    className="bg-neutral-900/40 border border-white/5 rounded-xl p-6 hover:border-[#E25C38]/40 transition-colors"
+                    className="max-w-full overflow-hidden bg-neutral-900/40 border border-white/5 rounded-xl p-6 hover:border-[#E25C38]/40 transition-colors"
                   >
-                    <p className="text-4xl md:text-5xl font-mono font-bold text-white mb-1">
+                    <p className="text-[clamp(1.5rem,6vw,4rem)] md:text-[clamp(1.75rem,7vw,4.5rem)] font-mono font-bold text-white mb-1 overflow-hidden overflow-wrap-anywhere">
                       {m.value}
                     </p>
                     <p className="text-sm font-mono text-[#E25C38] uppercase tracking-wider mb-2">
