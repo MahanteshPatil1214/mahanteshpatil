@@ -54,11 +54,11 @@ export default function Work() {
                 )}
                 <div className={styles.caseTitleRow}>
                   <h3 className={styles.caseTitle}>{project.title}</h3>
-                  {project.id === "keylo" ? (
+                  {["keylo", "veridoc-ai"].includes(project.id) ? (
                     <Link
                       className={styles.caseLink}
-                      href="/projects/keylo"
-                      aria-label={`Read Keylo case study`}
+                      href={`/projects/${project.id}`}
+                      aria-label={`Read ${project.title} case study`}
                     >
                       <span aria-hidden="true">↗</span>
                     </Link>

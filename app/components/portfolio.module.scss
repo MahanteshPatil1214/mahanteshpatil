@@ -1901,19 +1901,28 @@
 
   .heroMain {
     padding-block: clamp(2rem, 7vh, 3rem);
-    padding-inline: clamp(1rem, 4vw, 2rem);
+    padding-inline: clamp(0.75rem, 3vw, 1.5rem);
   }
 
   .heroName {
-    font-size: clamp(1.4rem, 9vw, 3rem);
-    letter-spacing: -0.02em;
-    overflow-wrap: break-word;
+    font-size: clamp(1.05rem, 4vw, 1.9rem);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    max-width: 100%;
   }
 
   .nameLine {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
+  }
+
+  .nameWord {
+    display: block;
+    white-space: nowrap;
+    word-break: keep-all;
+    max-width: 100%;
   }
 
   .heroIntro {
