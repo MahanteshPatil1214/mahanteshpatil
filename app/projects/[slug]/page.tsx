@@ -1,6 +1,5 @@
 import { keylo } from "@/app/data/case-studies/keylo";
 import { veridoc } from "@/app/data/case-studies/veridoc";
-import Link from "next/link";
 import { basePath } from "@/app/lib/constants";
 import type { Metadata } from "next";
 
@@ -58,13 +57,13 @@ export default async function CaseStudyPage({
     return (
       <section className="bg-[#0C0D0E] text-[#ECEEDF] min-h-screen py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <Link
-            href="/"
+          <a
+            href={`${basePath}/`}
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-[#E25C38] transition-colors mb-8"
             aria-label="Back to portfolio"
           >
             <span aria-hidden="true">←</span> Back to portfolio
-          </Link>
+          </a>
           <h1 className="text-4xl font-black text-white">Case study not found</h1>
           <p className="mt-4 text-neutral-400">
             The project page you&rsquo;re looking for doesn&rsquo;t exist yet.
@@ -111,13 +110,13 @@ export default async function CaseStudyPage({
       {/* Sticky Navbar */}
       <nav className="sticky top-0 z-40 h-16 backdrop-blur-md bg-[#0C0D0E]/80 border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-          <Link
-            href="/"
+          <a
+            href={`${basePath}/`}
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-[#E25C38] transition-colors"
             aria-label="Back to portfolio"
           >
             <span aria-hidden="true">←</span> Back to portfolio
-          </Link>
+          </a>
           <span className="text-xs font-mono text-[#E25C38] uppercase tracking-wider">Case Study // 01</span>
         </div>
       </nav>
