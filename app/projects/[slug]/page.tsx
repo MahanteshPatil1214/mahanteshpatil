@@ -367,7 +367,7 @@ export default async function CaseStudyPage({
                 </div>
 
                 {/* Action Card */}
-                <div className="bg-neutral-900/30 border border-white/5 rounded-xl p-6 md:p-8 col-span-2 lg:col-span-2">
+                <div className="bg-neutral-900/30 border border-white/5 rounded-xl p-6 md:p-8 lg:col-span-2">
                   <h3 className="text-sm font-mono uppercase tracking-wider text-[#E25C38] font-bold mb-6">
                     Action
                   </h3>
@@ -404,7 +404,7 @@ export default async function CaseStudyPage({
                 </div>
 
                 {/* Result Card */}
-                <div className="bg-neutral-900/30 border border-white/5 rounded-xl p-6 md:p-8 col-span-2 lg:col-span-2">
+                <div className="bg-neutral-900/30 border border-white/5 rounded-xl p-6 md:p-8 lg:col-span-2">
                   <h3 className="text-sm font-mono uppercase tracking-wider text-[#E25C38] font-bold mb-6">
                     Result
                   </h3>
